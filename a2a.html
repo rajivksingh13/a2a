@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>a2a - AI Solutions for the Future</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            @apply text-gray-800; /* Apply default text color */
+        }
+        /* Smooth scrolling for internal links */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0; /* Lighter track */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6b7280; /* Darker thumb */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4b5563; /* Even darker on hover */
+        }
+
+        /* Custom animation for fade-in-up */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-600 { animation-delay: 0.6s; }
+
+        /* Ensure header doesn't overlap content */
+        .min-h-screen-minus-header {
+            min-height: calc(100vh - var(--header-height, 0px));
+        }
+
+        /* Custom gradient for card borders on hover */
+        .card-border-gradient:hover {
+            border-image: linear-gradient(to right, #6366F1, #8B5CF6, #EC4899) 1;
+            border-style: solid;
+            border-width: 4px; /* Adjust as needed */
+        }
+
+        /* Specific styles for the tech AI look in About Us */
+        .tech-bg {
+            background: linear-gradient(135deg, #1A202C 0%, #2D3748 100%); /* Darker gradient */
+            position: relative;
+            overflow: hidden;
+        }
+        .tech-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 10% 20%, rgba(120, 86, 255, 0.1) 0%, transparent 50%),
+                              radial-gradient(circle at 90% 80%, rgba(0, 200, 255, 0.1) 0%, transparent 50%);
+            background-size: 800px 800px;
+            animation: backgroundPan 20s linear infinite alternate;
+        }
+
+        @keyframes backgroundPan {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .a2a-logo-container {
+            background: linear-gradient(45deg, #6366F1, #8B5CF6); /* Gradient background for logo */
+            border-radius: 1.5rem; /* Rounded corners */
+            padding: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+            position: relative;
+            z-index: 10; /* Ensure it's above background effects */
+        }
+        .a2a-logo-svg {
+            width: 100%;
+            height: auto;
+            max-width: 400px; /* Control max size */
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); /* Subtle shadow for SVG */
+        }
+        .a2a-logo-svg path {
+            fill: url(#gradient-a2a); /* Apply gradient to SVG paths */
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-lg fixed top-0 left-0 w-full z-50 border-b border-gray-100">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-3xl font-extrabold text-indigo-700 hover:text-indigo-900 transition duration-300 ease-in-out">a2a</a>
+            <div class="hidden md:flex space-x-10">
+                <a href="#home" class="text-gray-700 hover:text-indigo-700 transition duration-300 font-semibold text-lg">Home</a>
+                <a href="#offerings" class="text-gray-700 hover:text-indigo-700 transition duration-300 font-semibold text-lg">Offerings</a>
+                <a href="#about" class="text-gray-700 hover:text-indigo-700 transition duration-300 font-semibold text-lg">About Us</a>
+                <a href="#contact" class="text-gray-700 hover:text-indigo-700 transition duration-300 font-semibold text-lg">Contact Us</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 hover:text-indigo-700 focus:outline-none p-2 rounded-md hover:bg-gray-100 transition duration-300">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 shadow-xl border-t border-gray-200">
+            <a href="#home" class="block px-6 py-3 text-gray-800 hover:bg-indigo-50 hover:text-indigo-700 transition duration-300 font-medium">Home</a>
+            <a href="#offerings" class="block px-6 py-3 text-gray-800 hover:bg-indigo-50 hover:text-indigo-700 transition duration-300 font-medium">Offerings</a>
+            <a href="#about" class="block px-6 py-3 text-gray-800 hover:bg-indigo-50 hover:text-indigo-700 transition duration-300 font-medium">About Us</a>
+            <a href="#contact" class="block px-6 py-3 text-gray-800 hover:bg-indigo-50 hover:text-indigo-700 transition duration-300 font-medium">Contact Us</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="relative bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white py-32 md:py-48 flex items-center min-h-screen-minus-header overflow-hidden">
+            <div class="absolute inset-0 opacity-15" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 18v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM2 10v-4h-2v4H0v2h2v4h2v-4h4v-2H2zm36 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM2 52v-4h-2v4H0v2h2v4h2v-4h4v-2H2zm18 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM50 10v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 42v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM20 10v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 22v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-2 20v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM32 2v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 48v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM12 2v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 48v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM44 2v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 48v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM22 2v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM22 40v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM42 2v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM42 40v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM12 20v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM12 40v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM44 20v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM44 40v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM32 20v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 40v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM52 20v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 40v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-8 animate-fade-in-up">
+                    Driving Innovation with Advanced AI Solutions
+                </h1>
+                <p class="text-xl md:text-2xl mb-12 max-w-4xl mx-auto opacity-90 animate-fade-in-up delay-200">
+                    a2a empowers businesses to unlock new efficiencies, automate complex workflows, and make data-driven decisions with our cutting-edge Generative AI technologies.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-6 animate-fade-in-up delay-400">
+                    <a href="#offerings" class="bg-white text-blue-700 hover:bg-blue-800 hover:text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl transform hover:scale-105 transition duration-300 ease-in-out border-2 border-white">
+                        Explore Our Platform
+                    </a>
+                    <a href="#contact" class="bg-transparent text-white border-2 border-white hover:bg-white hover:text-blue-700 px-10 py-4 rounded-full text-xl font-bold shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
+                        Request a Demo
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Offerings Section -->
+        <section id="offerings" class="py-20 md:py-32 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-16">Our Comprehensive AI Offerings</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- AI-Workshops -->
+                    <div class="bg-white rounded-xl shadow-xl p-8 transform hover:scale-105 transition duration-300 ease-in-out border-t-8 border-blue-600 flex flex-col items-center text-center">
+                        <div class="text-blue-600 mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">AI-Workshops</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Engaging and practical workshops tailored for various audiences, from beginners to advanced practitioners.</p>
+                        <ul class="list-none text-gray-700 space-y-2 text-lg">
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Corporate Training</li>
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Student Development</li>
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Individual Skill Enhancement</li>
+                        </ul>
+                    </div>
+                    <!-- AI-Consultant -->
+                    <div class="bg-white rounded-xl shadow-xl p-8 transform hover:scale-105 transition duration-300 ease-in-out border-t-8 border-purple-600 flex flex-col items-center text-center">
+                        <div class="text-purple-600 mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-1.04-8.755-2.745M10 19l2-2m0 0l2 2m-2-2v4m2 0H8m6 0h2" />
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">AI-Consultant</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Expert AI consulting services to guide your strategic initiatives and ensure successful AI adoption.</p>
+                        <ul class="list-none text-gray-700 space-y-2 text-lg">
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Corporate Strategy</li>
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Student Project Guidance</li>
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Individual Career Mentorship</li>
+                        </ul>
+                    </div>
+                    <!-- AI-Library -->
+                    <div class="bg-white rounded-xl shadow-xl p-8 transform hover:scale-105 transition duration-300 ease-in-out border-t-8 border-pink-600 flex flex-col items-center text-center">
+                        <div class="text-pink-600 mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">AI-Library</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">A curated collection of resources for continuous learning and inspiration in the AI domain.</p>
+                        <ul class="list-none text-gray-700 space-y-2 text-lg">
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Generative AI Books</li>
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> AI-themed Comic Books</li>
+                        </ul>
+                    </div>
+                    <!-- AI-Labs -->
+                    <div class="bg-white rounded-xl shadow-xl p-8 transform hover:scale-105 transition duration-300 ease-in-out border-t-8 border-teal-600 flex flex-col items-center text-center">
+                        <div class="text-teal-600 mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-2-1m3-10l.422-2.11A1 1 0 0010 4h4a1 1 0 01.978.89L15 5m-6 10h.01M12 15h.01M15 15h.01M12 9h.01M7 12h.01M17 12h.01M7 15h.01M17 15h.01M12 12h.01M15 9h.01M9 9h.01M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">AI-Labs</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Hands-on lab environments for practical AI development, catering to all skill levels and preferences.</p>
+                        <ul class="list-none text-gray-700 space-y-2 text-lg">
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> No-Code AI Development</li>
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Low-Code AI Solutions</li>
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> With-Code AI Projects</li>
+                        </ul>
+                    </div>
+                    <!-- AI-Agents Marketplace -->
+                    <div class="bg-white rounded-xl shadow-xl p-8 transform hover:scale-105 transition duration-300 ease-in-out border-t-8 border-orange-600 flex flex-col items-center text-center">
+                        <div class="text-orange-600 mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 0A9.953 9.953 0 0112 12c-.512 0-1.016-.046-1.512-.134m-2.232 2.232l-3.536 3.536m0 0A9.953 9.953 0 0112 12c.512 0 1.016.046 1.512.134m2.232-2.232l3.536-3.536m0 0A9.953 9.953 0 0112 12c-.512 0-1.016-.046-1.512-.134M5.636 18.364l3.536-3.536m0 0A9.953 9.953 0 0112 12c.512 0 1.016.046 1.512.134M12 12a9.953 9.953 0 01-2.232-2.232m2.232 2.232a9.953 9.953 0 002.232 2.232m-2.232-2.232a9.953 9.953 0 00-2.232-2.232m2.232 2.232l-3.536-3.536m3.536 3.536l3.536 3.536" />
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">AI-Agents Marketplace</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Discover and deploy powerful AI agents to automate tasks and enhance business processes.</p>
+                        <ul class="list-none text-gray-700 space-y-2 text-lg">
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> No-Code Agents (e.g., n8n, Make, Vapi for Customer Support)</li>
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Low-Code Agents</li>
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Code Agents (e.g., Google ADK for Software Development)</li>
+                        </ul>
+                    </div>
+                    <!-- AI-Training -->
+                    <div class="bg-white rounded-xl shadow-xl p-8 transform hover:scale-105 transition duration-300 ease-in-out border-t-8 border-blue-600 flex flex-col items-center text-center">
+                        <div class="text-blue-600 mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V9m0 3v2m0 3v2" />
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">AI-Training</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Comprehensive training programs for popular AI tools and platforms, designed for all proficiency levels.</p>
+                        <ul class="list-none text-gray-700 space-y-2 text-lg">
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> No-Code Tools Training</li>
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Low-Code Tools Training</li>
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Code Tools Training (e.g., Cursor AI, Github Copilot, ChatGPT, Gemini)</li>
+                        </ul>
+                    </div>
+                    <!-- AI-Certifications -->
+                    <div class="bg-white rounded-xl shadow-xl p-8 transform hover:scale-105 transition duration-300 ease-in-out border-t-8 border-red-600 flex flex-col items-center text-center">
+                        <div class="text-red-600 mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.928 12c0 3.064 1.14 5.885 3.04 8.618 1.899 2.733 4.819 4.382 8.032 4.382s6.133-1.649 8.032-4.382c1.9-2.733 3.04-5.554 3.04-8.618a12.001 12.001 0 00-2.382-9.056z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">AI-Certifications</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Prepare for industry-recognized AI certifications with our structured programs and comprehensive resources.</p>
+                        <ul class="list-none text-gray-700 space-y-2 text-lg">
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Training Guide/Roadmap (AI-900, Generative AI Leader)</li>
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Training Materials</li>
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Question Bank</li>
+                        </ul>
+                    </div>
+                    <!-- AI-Blogs -->
+                    <div class="bg-white rounded-xl shadow-xl p-8 transform hover:scale-105 transition duration-300 ease-in-out border-t-8 border-green-600 flex flex-col items-center text-center">
+                        <div class="text-green-600 mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v2m-7 13v-3m0 0H6m6 0h6m-6 0v3m0 0h6m-6-3v-3m0 0H6m6 0h6" />
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">AI-Blogs</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Stay updated with the latest trends, insights, and news in Generative AI from our expert team.</p>
+                        <ul class="list-none text-gray-700 space-y-2 text-lg">
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Coming Soon: Engaging content and thought leadership.</li>
+                        </ul>
+                    </div>
+                    <!-- Pricing/Plan -->
+                    <div class="bg-white rounded-xl shadow-xl p-8 transform hover:scale-105 transition duration-300 ease-in-out border-t-8 border-yellow-600 flex flex-col items-center text-center">
+                        <div class="text-yellow-600 mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V9m0 3v2m0 3v2" />
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">Pricing/Plan</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Flexible pricing and plans designed to meet diverse needs, from individual learning to enterprise solutions.</p>
+                        <ul class="list-none text-gray-700 space-y-2 text-lg">
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Details on various service tiers and subscription models will be available soon.</li>
+                        </ul>
+                    </div>
+                     <!-- Resources -->
+                     <div class="bg-white rounded-xl shadow-xl p-8 transform hover:scale-105 transition duration-300 ease-in-out border-t-8 border-cyan-600 flex flex-col items-center text-center">
+                        <div class="text-cyan-600 mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-4">Resources</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Access valuable tools, guides, and datasets to enhance your AI journey and accelerate your projects.</p>
+                        <ul class="list-none text-gray-700 space-y-2 text-lg">
+                            <li class="flex items-center justify-center"><svg class="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> A growing collection of helpful resources is under development.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-20 md:py-32 tech-bg text-white">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-16 relative z-10">
+                <div class="md:w-1/2 flex justify-center items-center">
+                    <div class="a2a-logo-container">
+                        <svg class="a2a-logo-svg" viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="gradient-a2a" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#6366F1" />
+                                    <stop offset="50%" stop-color="#8B5CF6" />
+                                    <stop offset="100%" stop-color="#EC4899" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M20 90 L50 10 L80 90 H65 L50 40 L35 90 H20 Z" fill="url(#gradient-a2a)"/>
+                            <path d="M100 90 L130 10 L160 90 H145 L130 40 L115 90 H100 Z" fill="url(#gradient-a2a)"/>
+                            <path d="M170 90 C170 90 185 90 185 70 C185 50 170 50 170 30 C170 10 185 10 185 10 L185 90 H170 Z" fill="url(#gradient-a2a)"/>
+                            <circle cx="177.5" cy="15" r="7.5" fill="url(#gradient-a2a)"/>
+                            <circle cx="177.5" cy="85" r="7.5" fill="url(#gradient-a2a)"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-8">Pioneering the Future of Generative AI</h2>
+                    <p class="text-lg md:text-xl text-gray-200 mb-6 leading-relaxed">
+                        At **a2a**, we are a passionate team dedicated to democratizing Generative AI and making its transformative power accessible to everyone. Our mission is to empower individuals and organizations with the knowledge, cutting-edge tools, and bespoke solutions needed to thrive in the AI-driven era.
+                    </p>
+                    <p class="text-lg md:text-xl text-gray-200 leading-relaxed">
+                        From comprehensive workshops and expert consulting to state-of-the-art AI labs and a dynamic marketplace for intelligent AI agents, we provide a full spectrum of services to support your AI journey. Our commitment is to foster innovation, drive efficiency, and unlock new possibilities through responsible, scalable, and accessible AI technologies. Join us in building a smarter, more efficient future with Generative AI.
+                    </p>
+                    <a href="#contact" class="mt-8 inline-block bg-blue-600 text-white py-3 px-8 rounded-full text-lg font-semibold shadow-lg hover:bg-blue-700 transform hover:scale-105 transition duration-300 ease-in-out">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action / Testimonial Section (Example) -->
+        <section class="bg-blue-800 text-white py-16 md:py-24">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 leading-tight">Ready to Transform Your Business with AI?</h2>
+                <p class="text-xl md:text-2xl mb-12 max-w-3xl mx-auto opacity-90">
+                    Join leading organizations who are leveraging Generative AI to achieve unprecedented growth and efficiency.
+                </p>
+                <a href="#contact" class="bg-white text-blue-700 hover:bg-blue-100 px-10 py-4 rounded-full text-xl font-bold shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
+                    Start Your AI Journey Today
+                </a>
+            </div>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section id="contact" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-16">Get in Touch with Our AI Experts</h2>
+                <div class="max-w-3xl mx-auto bg-gray-50 p-10 rounded-2xl shadow-2xl border border-gray-200">
+                    <form class="space-y-8">
+                        <div>
+                            <label for="name" class="block text-lg font-medium text-gray-700 mb-2">Full Name</label>
+                            <input type="text" id="name" name="name" class="mt-1 block w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-600 focus:border-blue-600 text-lg placeholder-gray-400" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-lg font-medium text-gray-700 mb-2">Work Email</label>
+                            <input type="email" id="email" name="email" class="mt-1 block w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-600 focus:border-blue-600 text-lg placeholder-gray-400" placeholder="john.doe@company.com">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-lg font-medium text-gray-700 mb-2">Subject</label>
+                            <input type="text" id="subject" name="subject" class="mt-1 block w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-600 focus:border-blue-600 text-lg placeholder-gray-400" placeholder="Inquiry about AI Solutions">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-lg font-medium text-gray-700 mb-2">Your Message</label>
+                            <textarea id="message" name="message" rows="6" class="mt-1 block w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-600 focus:border-blue-600 text-lg placeholder-gray-400" placeholder="Tell us about your AI needs..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-4 px-8 rounded-lg font-bold text-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md">
+                            Send Message
+                        </button>
+                    </form>
+                    <div class="mt-12 text-center text-gray-600 text-lg">
+                        <p class="mb-4">Prefer to speak directly?</p>
+                        <p class="font-medium mb-2">Email: <a href="mailto:info@a2a.com" class="text-blue-600 hover:underline hover:text-blue-800 transition duration-300">info@a2a.com</a></p>
+                        <p class="font-medium">Phone: <a href="tel:+1234567890" class="text-blue-600 hover:underline hover:text-blue-800 transition duration-300">+1 (234) 567-890</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <a href="#home" class="text-3xl font-extrabold text-white mb-4 md:mb-0">a2a</a>
+                <div class="flex space-x-8 text-lg">
+                    <a href="#" class="hover:text-white transition duration-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition duration-300">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition duration-300">Careers</a>
+                </div>
+            </div>
+            <p class="text-gray-500 text-sm">&copy; 2025 a2a. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Adjust hero section height to account for fixed header
+        document.addEventListener('DOMContentLoaded', () => {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+        });
+    </script>
+</body>
+</html>
